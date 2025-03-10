@@ -26,5 +26,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Install Chrome and ChromeDriver
+        run: |
+          sudo apt update
+          sudo apt install -y google-chrome-stable
+          sudo apt install -y chromium-chromedriver
+          echo "Chrome and ChromeDriver installed."
+
       - name: Run Selenium Tests
-        run: pytest --maxfail=5 --disable-warnings --tb=short
+        env:
+          DISPLAY: ":99"  # Required for running GUI applications
+        run: |
+          pytest --maxfail=5 --disable-warnings --tb=short
